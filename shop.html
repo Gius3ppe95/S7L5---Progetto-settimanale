@@ -4,7 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shop Back Office</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.2/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
     <div class="container">
@@ -12,18 +17,23 @@
 
       <!-- Form per la creazione/modifica del prodotto -->
       <form id="productForm" class="mb-4" novalidate>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required />
-        <!-- Altri campi del form (description, price, imageUrl) -->
+        <div class="mb-3">
+          <label for="name" class="form-label">Name:</label>
+          <input type="text" class="form-control" id="name" name="name" required />
+        </div>
 
-        <button type="button" onclick="submitForm()">Aggiungi</button>
-        <button type="button" onclick="resetForm()">Reset</button>
+        <button type="button" class="btn btn-primary" onclick="submitForm()">Aggiungi</button>
+        <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset</button>
       </form>
 
-      <!-- Lista dei prodotti -->
-      <ul id="productList"></ul>
+      <ul id="productList" class="list-group"></ul>
     </div>
 
     <script src="./shop.js"></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.2/js/bootstrap.bundle.min.js"
+      integrity="sha384-eaQ8z8H+K1Mjz6Llq0FeD5dhOpQO9TkQDbV2RmpaePPO5Fv9Kg4GJn9A06JmPQ"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
