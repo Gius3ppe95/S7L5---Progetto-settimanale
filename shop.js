@@ -4,21 +4,30 @@ let productIdToEdit = null;
 
 function submitForm() {
   const name = document.getElementById("name").value;
-  // Altri campi del form (description, price, imageUrl)
+
+  // Aggiungi qui la validazione per gli altri campi se necessario
+  if (!name) {
+    alert("Il campo 'Name' è obbligatorio.");
+    return;
+  }
+
+  showLoadingIndicator(); // Mostra l'indicatore di caricamento
 
   if (editMode) {
     const productIndex = products.findIndex((product) => product._id === productIdToEdit);
     if (productIndex !== -1) {
-      products[productIndex] = { _id: productIdToEdit, name }; // altri campi
+      products[productIndex] = { _id: productIdToEdit, name }; // Aggiungi altri campi
     }
     editMode = false;
   } else {
-    const newProduct = { _id: Date.now(), name }; //altri campi
+    const newProduct = { _id: Date.now(), name }; // Aggiungi altri campi
     products.push(newProduct);
   }
 
   renderProductList();
   resetForm();
+
+  hideLoadingIndicator(); // Nascondi l'indicatore di caricamento
 }
 
 function resetForm() {
@@ -31,7 +40,7 @@ function editProduct(productId) {
   const productToEdit = products.find((product) => product._id === productId);
   if (productToEdit) {
     document.getElementById("name").value = productToEdit.name;
-    // popola gli altri campi del form
+    // Popola gli altri campi del form
     editMode = true;
     productIdToEdit = productId;
   }
@@ -63,7 +72,7 @@ function renderProductList() {
 
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Cancella";
-    deleteButton.addEventListener("click", () => deleteProduct(product._id));
+    deleteButton.addEventListener("click", () => confirmDelete(product._id));
     listItem.appendChild(deleteButton);
 
     const detailsButton = document.createElement("button");
@@ -74,3 +83,66 @@ function renderProductList() {
     productList.appendChild(listItem);
   });
 }
+
+function confirmDelete(productId) {
+  if (window.confirm("Sei sicuro di voler eliminare questo prodotto?")) {
+    deleteProduct(productId);
+  }
+}
+
+function showLoadingIndicator() {
+  // Logica per mostrare l'indicatore di caricamento
+}
+
+function hideLoadingIndicator() {
+  // Logica per nascondere l'indicatore di caricamento
+}
+function showError(message) {
+  alert(`Errore: ${message}`);
+}
+
+function submitForm() {
+  const name = document.getElementById("name").value;
+
+  if (!name) {
+    showError("Il campo 'Name' è obbligatorio.");
+    return;
+  }
+
+  showLoadingIndicator();
+
+  if (editMode) {
+    const productIndex = products.findIndex((product) => product._id === productIdToEdit);
+    if (productIndex !== -1) {
+      products[productIndex] = { _id: productIdToEdit, name }; // Aggiungi altri campi
+    } else {
+      showError("Il prodotto da modificare non è stato trovato.");
+    }
+    editMode = false;
+  } else {
+    const newProduct = { _id: Date.now(), name }; // Aggiungi altri campi
+    products.push(newProduct);
+  }
+
+  renderProductList();
+  resetForm();
+
+  hideLoadingIndicator();
+}
+
+function deleteProduct(productId) {
+  const productToDelete = products.find((product) => product._id === productId);
+
+  if (!productToDelete) {
+    showError("Il prodotto da eliminare non è stato trovato.");
+    return;
+  }
+
+  if (window.confirm("Sei sicuro di voler eliminare questo prodotto?")) {
+    products = products.filter((product) => product._id !== productId);
+    renderProductList();
+    resetForm();
+  }
+}
+
+// Aggiungi gestione degli errori anche ad altre funzioni se necessario

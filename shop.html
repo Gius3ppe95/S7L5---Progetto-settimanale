@@ -4,12 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shop Back Office</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="container">
       <h1 class="mb-4">Back Office</h1>
 
-      <form id="productForm" class="mb-4">
+      <!-- Form per la creazione/modifica del prodotto -->
+      <form id="productForm" class="mb-4" novalidate>
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required />
         <!-- Altri campi del form (description, price, imageUrl) -->
@@ -17,12 +19,11 @@
         <button type="button" onclick="submitForm()">Aggiungi</button>
         <button type="button" onclick="resetForm()">Reset</button>
       </form>
-      <!-- Dopo la sezione del form -->
-      <ul id="productList"></ul>
 
+      <!-- Lista dei prodotti -->
       <ul id="productList"></ul>
     </div>
 
-    <script src="shop.js"></script>
+    <script src="./shop.js"></script>
   </body>
 </html>
